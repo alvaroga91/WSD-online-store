@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+
+{% block title %}Edit game{% endblock title %}
+
+{% block content %}
+	<h1>Edit {{ game_name }} details</h1>
+
+	{% if messages %}
+		<ul class="messages">
+			{% for message in messages %}
+				<li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+			{% endfor %}
+		</ul>
+	{% endif %}
+
+	<div class="form-container">
+		<form name="input" action="/games/edit/" method="post"> {% csrf_token %}
+			<div class="form-group">
+				<label for="game-name">Name *</label>
+				<input type="text" class="form-control" name="game_name" id="game-name" value="{{game_name}}">
+			</div>
+			<div class="form-group">
+				<label for="game-url">URL of the game *</label>
+				<input type="text" class="form-control" name="source_url" id="game-url" value="{{source_url}}">
+			</div>
+			<div class="form-group">
+				<label for="game-price">Price *</label>
+				<div class="input-group">
+				    <div class="input-group-addon">€</div>
+				    <input type="text" class="form-control" name="price" id="game-price" value="{{price}}">
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="game-category">Category</label>
+				<select name="category" class="form-control" id="game-category">
+					<option value="Adventure" {% if category == "Adventure" %} selected="selected"{% endif %}>Adventure</option>
+					<option value="Driving" {% if category == "Driving" %} selected="selected"{% endif %}>Driving</option>
+					<option value="FPS" {% if category == "FPS" %} selected="selected"{% endif %}>First person shooter</option>
+					<option value="Puzzle" {% if category == "Puzzle" %} selected="selected"{% endif %}>Puzzle</option>
+					<option value="RPG" {% if category == "RPG" %} selected="selected"{% endif %}>RPG</option>
+				</select>
+			</div>
+			<div class="form-group">
+				<label for="game-description">Description</label>
+				<input type="text" class="form-control" name="description" id="game-description" value="{{description}}">
+			</div>
+			<div>
+            	<p>* required field</p>
+            </div>
+			<div class="form-group">
+				<input type="submit" class="btn btn-primary" name="submit" id="submit-game" value="Submit">
+			</div>
+
+		</form>
+	</div>
+{% endblock content %}

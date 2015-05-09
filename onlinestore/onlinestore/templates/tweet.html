@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% block title %} Tweet page {% endblock title %}
+{% block content %}
+<form action="https://twitter.com/intent/tweet">
+Tweet: <input type="text" name="text" value=""><br>
+<input type="submit" value="Submit">
+</form>
+<p></p>
+{% endblock content %}

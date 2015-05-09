@@ -1,0 +1,82 @@
+{% extends "base.html" %}
+
+{% block title %}Profile{% endblock title %}
+
+{% block content %}
+	<h1>{{ user.username }}'s profile</h1>
+	<div id="profile" class="profile-div">
+		<h3 id="profile-username">Welcome {{user.username}}!</h3>
+		<p id="profile-email">Email: {{user.email}}</p>
+	</div>
+
+	<h2>Bought games</h2>
+	{% if bought_games %}
+        <table class="table table-bordered">
+		    <tr>
+				<th>Name</th>
+				<th>Description</th>
+			</tr>
+		{% for game in bought_games %}
+		    <tr>
+			    <td><a href="{% url 'views.playgamepage' game.pk %}">{{ game.name }}</a></td>
+			    <td>{{ game.description }}</td>
+			</tr>
+		{% endfor %}
+		</table>
+	{% else %}
+		<p>You haven't bought any games yet. You can purchase games in the
+		<a href="/games">games</a> page.</p>
+	{% endif %}
+
+	{% if is_developer %}
+		<div id="inventory" class="profile-div">
+			<h2 id="inventory-heading">Inventory</h2>
+			{% if messages %}
+				<ul class="messages">
+					{% for message in messages %}
+						<li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+					{% endfor %}
+				</ul>
+			{% endif %}
+
+			<div class="table-games">
+				<table class="table table-bordered">
+					<tr>
+						<th>Name</th>
+						<th>Delete</th>
+						<th>Edit details</th>
+						<th>See sales</th>
+					</tr>
+					{% for obj in developed_games %}
+						<tr>
+							<td><a href="{% url 'views.playgamepage' obj.pk %}">{{obj}}</a></td>
+							<td>
+								<form name="delete" action="/games/delete/" method="post"> {% csrf_token %}
+									<input type="hidden" name="to_be_deleted" value="{{obj}}">
+									<input type="submit" class="btn" name="submit-delete" value="Delete">
+								</form>
+							</td>
+							<td>
+								<form name="edit" action="/games/edit/" method="post"> {% csrf_token %}
+									<input type="hidden" name="to_be_edited" value="{{obj}}">
+									<input type="submit"  class="btn" name="submit-edit" value="Edit">
+								</form>
+							</td>
+							<td>
+								<form name="edit" action="/games/sales/" method="post"> {% csrf_token %}
+									<input type="hidden" name="view_sales_of" value="{{obj}}">
+									<input type="submit"  class="btn" name="submit-sales" value="Sales">
+								</form>
+							</td>
+						</tr>
+					{% endfor %}
+				</table>
+			</div>
+
+			<!--Add game button -->
+			<button class="btn btn-primary" onclick="location.href='/games/add'"> {% csrf_token %}
+				Add a new game
+			</button>
+		</div>
+	{% endif %}
+{% endblock content %}

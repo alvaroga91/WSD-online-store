@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    {%load staticfiles %}
+    <link rel="stylesheet" href="{% static 'onlinestore/styles.css' %}" />
+	<link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.min.css' %}">
+    <script src="{% static 'onlinestore/scripts/jquery-2.1.3.js' %}"></script>
+    <script src="{% static 'onlinestore/scripts/jquery.cookie.js' %}"></script>
+	<script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
+    {% block scripts %} {% endblock %}
+    <title>{% block title %}Online game store{% endblock %}</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<body>
+<nav class="navbar navbar-inverse navbar-fixed-top">
+	<div class="container">
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+			<a class="navbar-brand" href="/">Online game store</a>
+		</div>
+		{% block sidebar %}
+		<div id="navbar" class="collapse navbar-collapse">
+			<ul class="nav navbar-nav">
+				<li><a href="/profile">Profile</a></li>
+				<li><a href="/games">Games</a></li>
+				<li>{% if user.is_anonymous %}
+						<a href="{% url 'django.contrib.auth.views.login' %}">Log in</a>
+					{% else %}
+						<a href="{% url 'django.contrib.auth.views.logout' %}">Log out</a>
+					{% endif %}
+				</li>
+			</ul>
+		</div><!--/.nav-collapse -->
+		{% endblock %}
+	</div>
+</nav>
+<div class="container">
+
+    <div id="content" class="starter-template">
+        {% block content %}{% endblock %}
+    </div>
+</div>
+</body>
+</html>

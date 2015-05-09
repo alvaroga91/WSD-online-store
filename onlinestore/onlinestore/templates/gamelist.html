@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block title %} Game list {% endblock title %}
+{% block content %}
+    <h1>Game list</h1>
+	<p>Click on the table header to sort the table.</p>
+	<table class="table table-bordered">
+		<tr>
+			<th><a href="?order_by=name">Name</a></th>
+			<th><a href="?order_by=category">Category</a></th>
+			<th><a href="?order_by=price">Price</a></th>
+			<th><a href="?order_by=developer">Developer</a></th>
+		</tr>
+		{% for game in games %}
+        <tr>
+		    <td><a href="{% url 'views.viewgamepage' game.pk %}">{{ game.name }}</a></td>
+			<td>{{ game.category }}</td>
+		    <td>€{{ game.price }}</td>
+		    <td>{{ game.developer.user.username }}</td>
+		</tr>
+		{% endfor %}
+	</table>
+
+{% endblock content %}

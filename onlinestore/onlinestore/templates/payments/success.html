@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h1>Purchase successful!</h1>
+<form action="{% url 'views.playgamepage' game.pk%}" method="POST">
+     {% csrf_token %}
+
+    <p><input type="submit" value="Play game!"/>
+	
+</form>
+
+{% endblock content %}

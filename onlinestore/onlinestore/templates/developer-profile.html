@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+
+<<<<<<< HEAD
+{% load staticfiles %}
+<script src="{% static 'onlinestore/scripts/tabDisplay.js' %}"></script>
+
+{% block title %}Developer profile{% endblock title %}
+
+<div id="sidebar">
+{% block sidebar %}
+	<ul class="tab-links">
+		<li class="active"> <a href="profile">Profile</li>
+		<li><a href="../games">All Games</a></li>
+		<li><a href="inventory">Inventory</a></li>
+	</ul>
+{% endblock sidebar %}
+</div>
+
+=======
+{% block title %}Profile{% endblock title %}
+>>>>>>> 2bd57df736f423ebb0156d9eb9b969b1ba7d7fcc
+
+{% block content %}
+	<div id="profile" class="profile-div">
+		<h3 id="profile-username">Welcome {{user.username}}!</h2>
+		<h3 id="profile-email">Email: {{user.email}}</h2>			
+	</div>	
+	
+	{% if is_developer %}
+	<div id="inventory" class="profile-div">
+		<h1 id="inventory-heading">Inventory</h1>
+		
+		<!--inventory table-->
+		<table id="inventory-table">
+		<!--
+		{% for obj in game_sales_array %}
+    		<tr>
+    		<td>{{obj}}</td>
+    
+    		</tr>
+		{% endfor %}
+		-->
+		</table>
+		
+		<!--Add game button -->
+		<button onclick="location.href='/game/add'">
+     	Add a new game
+     	</button>
+	</div>
+	{% endif %}
+{% endblock content %}

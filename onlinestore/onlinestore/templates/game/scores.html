@@ -1,0 +1,14 @@
+<table class="table">
+    <tr>
+		<th>#</th>
+		<th>Username</th>
+		<th>Score</th>
+	</tr>
+	{% for score in scores|slice:":10" %}
+		<tr>
+			<td>{{ forloop.counter }}.</td>
+			<td>{{ score.player.username }}</td>
+			<td>{{ score.score }}</td>
+		</tr>
+	{%  endfor %}
+</table>
